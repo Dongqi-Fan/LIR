@@ -1,0 +1,56 @@
+name: test_LIRDerain
+model_type: Origin
+crop_border: ~
+num_gpu: 1
+gpu_id: 1
+manual_seed: 0
+test: True
+pretraining: False
+
+datasets:
+  test_1:
+    name: Rain100L
+    type: Dataset_Paired
+    dataroot_gt: ~
+    dataroot_lq: ~
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+    mod: 32
+
+
+network_g:
+  type: LIR
+
+val:
+  save_img: true
+  suffix: false
+
+  metrics:
+    psnr_rgb:
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: False
+
+    ssim_rgb:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: False
+
+    psnr_y:
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: True
+
+    ssim_y:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: True
+
+save_img: true
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+
